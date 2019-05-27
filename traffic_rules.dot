@@ -1,0 +1,31 @@
+digraph {
+    concentrate = true
+
+    
+    application[shape = box]
+    database[shape = box]
+    internet
+    management[shape = box]
+    remote_management
+    web[shape = box]
+
+    
+    internet -> web[label = "https"]
+    internet -> web[label = "http"]
+    web -> application[label = "https"]
+    web -> application[label = "http"]
+    web -> internet[label = "all"]
+    web -> web[label = "all"]
+    application -> database[label = "postgresql"]
+    application -> internet[label = "all"]
+    application -> application[label = "all"]
+    remote_management -> management[label = "ssh"]
+    management -> web[label = "ssh"]
+    management -> application[label = "ssh"]
+    management -> management[label = "ssh"]
+    management -> database[label = "ssh"]
+    management -> internet[label = "all"]
+    management -> management[label = "all"]
+    database -> internet[label = "all"]
+    database -> database[label = "all"]
+}
