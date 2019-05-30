@@ -25,9 +25,9 @@ resource "aws_security_group_rule" "management_ssh_ingress_from_management" {
 }
 
 locals {
-    security_group_management_ssh_ingress_from_cidr_blocks = "${flatten(list(
+    security_group_management_ssh_ingress_from_cidr_blocks = "${flatten([
         var.remote_management_cidrs
-    ))}"
+    ])}"
 }
 
 // https://www.terraform.io/docs/providers/aws/r/security_group_rule.html
@@ -102,9 +102,9 @@ resource "aws_security_group_rule" "management_all_egress_to_management" {
 }
 
 locals {
-    security_group_management_all_egress_to_cidr_blocks = "${flatten(list(
+    security_group_management_all_egress_to_cidr_blocks = "${flatten([
         "0.0.0.0/0"
-    ))}"
+    ])}"
 }
 
 // https://www.terraform.io/docs/providers/aws/r/security_group_rule.html
