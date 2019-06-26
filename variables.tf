@@ -1,21 +1,21 @@
 
 
 variable "vpc_cidr_block" {
-    type = "string"
-    
+  type = "string"
+
 }
 
 variable "vpc_name" {
-    type = "string"
-    
+  type = "string"
+
 }
 
 variable "vpc_owner" {
-    type = "string"
-    
+  type = "string"
+
 }
 
 variable "remote_management_cidrs" {
-    type = "list"
-    
+  type = "list"
+
 }
