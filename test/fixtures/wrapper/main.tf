@@ -1,5 +1,5 @@
 module "vpc-simple" {
-  source = "../"
+  source = "../../../"
 
   remote_management_cidrs = ["0.0.0.0/0"]
   vpc_name = "samuel-vpc-simple"
