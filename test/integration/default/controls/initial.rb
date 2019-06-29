@@ -1,0 +1,2 @@
+control 'initial' do
+end

@@ -19,9 +19,9 @@ resource "aws_network_acl" "database_tier" {
 }
 
 locals {
-  network_acl_database_postgresql_ingress_from_cidr_blocks = concat(
+  network_acl_database_postgresql_ingress_from_cidr_blocks = flatten([
     list(local.application_tier_cidr_block)
-  )
+  ])
 }
 
 // https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
@@ -39,9 +39,9 @@ resource "aws_network_acl_rule" "database_postgresql_ingress_from_cidr_blocks" {
 
 
 locals {
-  network_acl_database_ssh_ingress_from_cidr_blocks = concat(
+  network_acl_database_ssh_ingress_from_cidr_blocks = flatten([
     list(local.management_tier_cidr_block)
-  )
+  ])
 }
 
 // https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
@@ -59,9 +59,9 @@ resource "aws_network_acl_rule" "database_ssh_ingress_from_cidr_blocks" {
 
 
 locals {
-  network_acl_database_all_ingress_from_cidr_blocks = concat(
+  network_acl_database_all_ingress_from_cidr_blocks = flatten([
     list(local.database_tier_cidr_block)
-  )
+  ])
 }
 
 // https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
@@ -79,10 +79,10 @@ resource "aws_network_acl_rule" "database_all_ingress_from_cidr_blocks" {
 
 
 locals {
-  network_acl_database_ephemeral_ingress_from_cidr_blocks = concat(
+  network_acl_database_ephemeral_ingress_from_cidr_blocks = flatten([
     "0.0.0.0/0",
     list(local.database_tier_cidr_block)
-  )
+  ])
 }
 
 // https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
@@ -100,10 +100,10 @@ resource "aws_network_acl_rule" "database_ephemeral_ingress_from_cidr_blocks" {
 
 
 locals {
-  network_acl_database_all_egress_to_cidr_blocks = concat(
+  network_acl_database_all_egress_to_cidr_blocks = flatten([
     "0.0.0.0/0",
     list(local.database_tier_cidr_block)
-  )
+  ])
 }
 
 // https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
@@ -121,12 +121,12 @@ resource "aws_network_acl_rule" "database_all_egress_to_cidr_blocks" {
 
 
 locals {
-  network_acl_database_ephemeral_egress_from_cidr_blocks = concat(
+  network_acl_database_ephemeral_egress_from_cidr_blocks = flatten([
     "0.0.0.0/0",
     list(local.application_tier_cidr_block),
     list(local.database_tier_cidr_block),
     list(local.management_tier_cidr_block)
-  )
+  ])
 }
 
 // https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
