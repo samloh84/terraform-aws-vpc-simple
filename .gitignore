@@ -8,3 +8,5 @@ output_*.log
 
 terraform.tfstate.d/
 
+*secret*
+terraform.tfstate.lock.info

@@ -20,7 +20,7 @@ resource "aws_network_acl" "web_tier" {
 
 locals {
   network_acl_web_https_ingress_from_cidr_blocks = flatten([
-    "0.0.0.0/0"
+    var.remote_https_cidrs
   ])
 }
 
@@ -40,7 +40,7 @@ resource "aws_network_acl_rule" "web_https_ingress_from_cidr_blocks" {
 
 locals {
   network_acl_web_http_ingress_from_cidr_blocks = flatten([
-    "0.0.0.0/0"
+    var.remote_https_cidrs
   ])
 }
 
@@ -186,7 +186,8 @@ locals {
     "0.0.0.0/0",
     list(local.application_tier_cidr_block),
     list(local.management_tier_cidr_block),
-    list(local.web_tier_cidr_block)
+    list(local.web_tier_cidr_block),
+    var.remote_https_cidrs
   ])
 }
 

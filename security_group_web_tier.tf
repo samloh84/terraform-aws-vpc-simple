@@ -16,7 +16,7 @@ resource "aws_security_group" "web_tier" {
 
 locals {
   security_group_web_https_ingress_from_cidr_blocks = flatten(list(
-    "0.0.0.0/0"
+    var.remote_https_cidrs
   ))
 }
 
@@ -33,7 +33,7 @@ resource "aws_security_group_rule" "web_https_ingress_from_cidr_blocks" {
 
 locals {
   security_group_web_http_ingress_from_cidr_blocks = flatten(list(
-    "0.0.0.0/0"
+    var.remote_https_cidrs
   ))
 }
 

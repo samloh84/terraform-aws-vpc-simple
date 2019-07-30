@@ -6,12 +6,13 @@ digraph {
     database[shape = box]
     internet
     management[shape = box]
+    remote_https
     remote_management
     web[shape = box]
 
     
-    internet -> web[label = "https"]
-    internet -> web[label = "http"]
+    remote_https -> web[label = "https"]
+    remote_https -> web[label = "http"]
     web -> application[label = "https"]
     web -> application[label = "http"]
     web -> internet[label = "all"]

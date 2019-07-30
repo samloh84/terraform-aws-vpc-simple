@@ -19,3 +19,8 @@ variable "remote_management_cidrs" {
   type = "list"
 
 }
+
+variable "remote_https_cidrs" {
+  type = "list"
+
+}
