@@ -99,18 +99,6 @@ resource "aws_route_table_association" "application_tier_ap-southeast-1b" {
 }
 
 // https://www.terraform.io/docs/providers/aws/r/route_table_association.html
-resource "aws_route_table_association" "management_tier_ap-southeast-1a" {
-  subnet_id      = aws_subnet.management_tier_ap-southeast-1a.id
-  route_table_id = aws_route_table.private_ap-southeast-1a.id
-}
-
-// https://www.terraform.io/docs/providers/aws/r/route_table_association.html
-resource "aws_route_table_association" "management_tier_ap-southeast-1b" {
-  subnet_id      = aws_subnet.management_tier_ap-southeast-1b.id
-  route_table_id = aws_route_table.private_ap-southeast-1b.id
-}
-
-// https://www.terraform.io/docs/providers/aws/r/route_table_association.html
 resource "aws_route_table_association" "database_tier_ap-southeast-1a" {
   subnet_id      = aws_subnet.database_tier_ap-southeast-1a.id
   route_table_id = aws_route_table.private_ap-southeast-1a.id

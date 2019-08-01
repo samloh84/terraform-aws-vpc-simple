@@ -73,7 +73,7 @@ resource "aws_subnet" "management_tier_ap-southeast-1a" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = cidrsubnet(local.management_tier_cidr_block, 2, 0)
   availability_zone       = "ap-southeast-1a"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
 
   tags = {
     Name         = "${var.vpc_name}.subnet.management_tier_ap-southeast-1a"
@@ -87,7 +87,7 @@ resource "aws_subnet" "management_tier_ap-southeast-1b" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = cidrsubnet(local.management_tier_cidr_block, 2, 1)
   availability_zone       = "ap-southeast-1b"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
 
   tags = {
     Name         = "${var.vpc_name}.subnet.management_tier_ap-southeast-1b"
