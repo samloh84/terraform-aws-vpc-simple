@@ -80,8 +80,7 @@ resource "aws_network_acl_rule" "database_all_ingress_from_cidr_blocks" {
 
 locals {
   network_acl_database_ephemeral_ingress_from_cidr_blocks = flatten([
-    "0.0.0.0/0",
-    list(local.database_tier_cidr_block)
+    "0.0.0.0/0"
   ])
 }
 
@@ -121,24 +120,21 @@ resource "aws_network_acl_rule" "database_all_egress_to_cidr_blocks" {
 
 
 locals {
-  network_acl_database_ephemeral_egress_from_cidr_blocks = flatten([
-    "0.0.0.0/0",
-    list(local.application_tier_cidr_block),
-    list(local.database_tier_cidr_block),
-    list(local.management_tier_cidr_block)
+  network_acl_database_ephemeral_egress_to_cidr_blocks = flatten([
+    "0.0.0.0/0"
   ])
 }
 
 // https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
-resource "aws_network_acl_rule" "database_ephemeral_egress_from_cidr_blocks" {
-  count          = length(local.network_acl_database_ephemeral_egress_from_cidr_blocks)
+resource "aws_network_acl_rule" "database_ephemeral_egress_to_cidr_blocks" {
+  count          = length(local.network_acl_database_ephemeral_egress_to_cidr_blocks)
   egress         = true
   from_port      = 1024
   to_port        = 65535
   protocol       = "tcp"
   rule_number    = 100 + (10 * length(local.network_acl_database_all_egress_to_cidr_blocks)) + (10 * count.index)
   rule_action    = "allow"
-  cidr_block     = local.network_acl_database_ephemeral_egress_from_cidr_blocks[count.index]
+  cidr_block     = local.network_acl_database_ephemeral_egress_to_cidr_blocks[count.index]
   network_acl_id = aws_network_acl.database_tier.id
 }
 
