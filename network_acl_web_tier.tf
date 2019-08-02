@@ -119,6 +119,27 @@ resource "aws_network_acl_rule" "web_ephemeral_ingress_from_cidr_blocks" {
 
 
 locals {
+  network_acl_web_all_ingress_to_nat_gateway_from_cidr_blocks = flatten([
+    local.application_tier_cidr_block,
+    local.database_tier_cidr_block
+  ])
+}
+
+// https://www.terraform.io/docs/providers/aws/r/network_acl_rule.html
+resource "aws_network_acl_rule" "web_all_ingress_to_nat_gateway_from_cidr_blocks" {
+  count          = length(local.network_acl_web_all_ingress_to_nat_gateway_from_cidr_blocks)
+  egress         = false
+  from_port      = 0
+  to_port        = 0
+  protocol       = "-1"
+  rule_number    = 100 + (10 * length(local.network_acl_web_https_ingress_from_cidr_blocks)) + (10 * length(local.network_acl_web_http_ingress_from_cidr_blocks)) + (10 * length(local.network_acl_web_all_ingress_from_cidr_blocks)) + (10 * length(local.network_acl_web_ssh_ingress_from_cidr_blocks)) + (10 * length(local.network_acl_web_ephemeral_ingress_from_cidr_blocks)) + (10 * count.index)
+  rule_action    = "allow"
+  cidr_block     = local.network_acl_web_all_ingress_to_nat_gateway_from_cidr_blocks[count.index]
+  network_acl_id = aws_network_acl.web_tier.id
+}
+
+
+locals {
   network_acl_web_https_egress_to_cidr_blocks = flatten([
     list(local.application_tier_cidr_block)
   ])
